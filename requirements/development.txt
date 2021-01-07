@@ -1,0 +1,4 @@
+-r base.txt
+pylint
+flake8
+black
