@@ -1,4 +1,5 @@
 -r base.txt
+-r testing.txt
 pylint
 flake8
 black

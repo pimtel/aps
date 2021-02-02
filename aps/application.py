@@ -1,20 +1,21 @@
-
 import os
 from flask import Flask
-from flask_sqlalchemy import SQLAlchemy
 from flask_smorest import Api, Blueprint, abort
+from flask_sqlalchemy import SQLAlchemy
 
-app = Flask('aps')
-app.config.from_object('aps.config.DevelopmentConfig')
-db = SQLAlchemy(app)
-api = Api(app)
+FLASK_CONFIG_OBJECT_NAMESPACE = os.environ['FLASK_CONFIG_OBJECT_NAMESPACE']
 
-import aps.aquarium.models
-if app.config['FLASK_ENV'] in ('development', 'testing'):
-    db.create_all(app=app)
-    a = aps.aquarium.models.Aquarium(name="Aquario Amazonico", ph=6.8)
-    db.session.add(a)
-    db.session.commit()
+db = SQLAlchemy()
+api = Api()
 
-import aps.aquarium.views
-app.register_blueprint(aps.aquarium.views.bp)
+
+def create_app():
+    app = Flask('aps')
+    app.config.from_object(FLASK_CONFIG_OBJECT_NAMESPACE)
+    api.init_app(app)
+    db.init_app(app)
+
+    import aps.aquarium.views
+    app.register_blueprint(aps.aquarium.views.bp)
+
+    return app
