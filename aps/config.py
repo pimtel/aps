@@ -3,10 +3,11 @@ import os
 class Config:
     DEBUG = False
     TESTING = False
-    # SQLALCHEMY_DATABASE_URI = 'sqlite://:memory/:'
+    SQLALCHEMY_DATABASE_URI = 'sqlite:///:memory:'
     API_TITLE = 'APS'
     API_VERSION = 'v1'
     OPENAPI_VERSION = '3.0.2'
+    SQLALCHEMY_TRACK_MODIFICATIONS = False
 
 class ProductionConfig(Config):
     SQLALCHEMY_DATABASE_URI = f'postgres://{os.getenv("DATABASE_USERNAME")}:{os.getenv("DATABASE_PASSWORD")}@localhost:5432/aps'

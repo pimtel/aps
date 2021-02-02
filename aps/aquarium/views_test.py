@@ -1,34 +1,7 @@
-from unittest import TestCase
-
 import pytest
 
-from aps import application
 from aps.aquarium.models import Aquarium
-
-
-@pytest.fixture(scope='class')
-def app():
-    app = application.create_app()
-    with app.app_context():
-      application.db.create_all()
-    return app
-
-
-@pytest.fixture(scope='class')
-def client(request, app):
-    request.cls.client = app.test_client()
-
-
-@pytest.fixture(scope='class')
-def db(request, app):
-    with app.app_context():
-      request.cls.db = application.db
-      yield
-
-@pytest.mark.usefixtures('client')
-@pytest.mark.usefixtures('db')
-class BaseTestCase(TestCase):
-  pass
+from aps.conftest import BaseTestCase
 
 
 class AquariumTest(BaseTestCase):
