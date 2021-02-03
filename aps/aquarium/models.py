@@ -8,7 +8,7 @@ class Aquarium(db.Model):
     ph = db.Column(db.Float)
 
     def __repr__(self):
-        return f'<Aquarium {self.name}>'
+        return f'<Aquarium {self.name} / {self.ph}>'
 
 
 class AquariumFromDynamo:

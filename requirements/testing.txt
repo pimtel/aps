@@ -1,2 +1,5 @@
 pytest
 pytest-env
+factory_boy
+Faker
+mixer
